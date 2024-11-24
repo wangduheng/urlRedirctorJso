@@ -1,0 +1,39 @@
+{
+  "version": "1.0",
+  "rules": [
+    {
+      "description": "ssa1",
+      "origin": "http://ssa.jd.com/sso*",
+      "exclude": "",
+      "methods": [],
+      "types": [],
+      "target": "https://m.jd.com/",
+      "example": "http://ssa.jd.com/sso?aaa=aaaa",
+      "enable": true,
+      "process": "urlEncode",
+      "_originRe": {}
+    },
+    {
+      "description": "1",
+      "origin": "https://item.m.jd.com/product/100089324727.html",
+      "exclude": "",
+      "methods": [],
+      "types": [],
+      "target": "https://m.jd.com",
+      "example": "",
+      "enable": true,
+      "process": "urlEncode"
+    },
+    {
+      "description": "2",
+      "origin": "https://item.m.jd.com/product/10008122*",
+      "exclude": "",
+      "methods": [],
+      "types": [],
+      "target": "https://m.jd.com",
+      "example": "",
+      "enable": true,
+      "process": "urlEncode"
+    }
+  ]
+}
