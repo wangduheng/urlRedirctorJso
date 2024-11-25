@@ -1,0 +1,86 @@
+// ==UserScript==
+// @name         xxoo-clickStartAndEnd
+// @namespace    com.hengry.clickStartAndEnd
+// @version      2024-09-02
+// @description  try to take over the world!
+// @author       You
+// @match        *://*.jd.hk/*
+// @match        *://*.jdh.*/*
+// @match        https://m.jd.com/*
+// @match        https://item.m.jd.com/*
+// @match        https://ssa.jd.com/*
+// @match        https://www.temu.com/*
+// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+// @grant        none
+// @run-at       document-start
+// ==/UserScript==
+(function() {
+    'use strict';
+
+    // 设置监控的目标元素的CSS选择器和按钮的CSS选择器
+    const monitoredElementSelector = '.log_item';
+    const buttonSelector = 'button#task-start';
+    const jsStartBtn="button#startColl"
+    const jsStopBtn="button#stopColl"
+    const timeLimit = 2 * 60 * 1000;
+
+    let lastContent = null;
+    let lastChangedTime = Date.now();
+function isBeijingTimeBetween5And8() {
+  const now = new Date();
+  const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000); // 调整为 UTC 时间
+  // 将当前 UTC 时间转换为北京时间（东八区，UTC+8）
+  const beijingTime = new Date(utcTime + (8 * 60 * 60 * 1000)); // 8小时的毫秒
+  // 获取北京时间的小时
+  const hours = beijingTime.getHours();
+  // 判断是否在5点到8点之间
+  return hours >= 5 && hours < 8;
+}
+
+    // 定时检查元素内容是否变化
+    function checkElementContent() {
+        console.log("当前时间："+Date.now())
+        const element = document.querySelector(monitoredElementSelector);
+        const btnStart = document.querySelector(jsStartBtn);
+        const btnEnd = document.querySelector(jsStopBtn);
+
+        if (element) {
+            const currentContent = element.textContent || element.innerText;
+            console.log(currentContent)
+            if (currentContent !== lastContent) {
+                lastContent = currentContent;
+                lastChangedTime = Date.now();
+            } else if (Date.now() - lastChangedTime >= timeLimit) {
+                // 如果内容5分钟没有变化，点击按钮
+                const button = document.querySelector(buttonSelector);
+                const btnTet = button.textContent || button.innerText;
+                if (button) {
+                    console.log(btnTet)
+                    if(btnTet==="停止任务"){
+                        console.log('点击两次');
+                        button.click();
+                        setTimeout(function() {
+                            console.log('延迟3秒执行');
+                            button.click();
+                            console.log('5分钟没有改变，点击按钮完成!');
+                        }, 3000);
+                    }else{
+                        console.log('点击两次');
+                        button.click();
+                        console.log('5分钟没有改变，点击按钮完成!');
+                    }
+                }
+            }
+        }
+        if(isBeijingTimeBetween5And8()){
+            console.log('当前在5-8点之间');
+            if(btnEnd){btnEnd.click();}
+         }else{
+             console.log('当前不在5-8点之间');
+            if(btnStart){btnStart.click()}
+        }
+    }
+    console.log("clickStartAndEnd")
+    // 每30秒检查一次
+    setInterval(checkElementContent, 60 * 1000);
+})();
