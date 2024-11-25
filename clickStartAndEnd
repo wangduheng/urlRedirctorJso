@@ -4,8 +4,8 @@
 // @version      2024-09-02
 // @description  try to take over the world!
 // @author       You
+// @match        https://*.jdh.com/*
 // @match        *://*.jd.hk/*
-// @match        *://*.jdh.*/*
 // @match        https://m.jd.com/*
 // @match        https://item.m.jd.com/*
 // @match        https://ssa.jd.com/*
