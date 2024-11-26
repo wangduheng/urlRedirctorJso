@@ -6,7 +6,7 @@
 // @author       You
 // @match        https://*.jdh.com/*
 // @match        *://*.jd.hk/*
-// @match        https://m.jd.com/*
+// @match        https://*.jd.com/*
 // @match        https://item.m.jd.com/*
 // @match        https://ssa.jd.com/*
 // @match        https://www.temu.com/*
